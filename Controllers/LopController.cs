@@ -10,86 +10,85 @@ using KiemTraMvc.Models;
 
 namespace KiemTraMvc.Controllers
 {
-    public class Hieu : Controller
+    public class LopController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Hieu(ApplicationDbContext context)
+        public LopController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Hieu
+        // GET: Lop
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Lop.ToListAsync());
         }
 
-        // GET: Hieu/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        // GET: Lop/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var hieu = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (hieu == null)
+            var lop = await _context.Lop
+                .FirstOrDefaultAsync(m => m.FullName == id);
+            if (lop == null)
             {
                 return NotFound();
             }
 
-            return View(hieu);
+            return View(lop);
         }
 
-        // GET: Hieu/Create
+        // GET: Lop/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Hieu/Create
+        // POST: Lop/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FullName")] Hieu hieu)
+        public async Task<IActionResult> Create([Bind("FullName,Sđt,Tuoi")] Lop lop)
         {
             if (ModelState.IsValid)
             {
-                hieu.Id = Guid.NewGuid();
-                _context.Add(hieu);
+                _context.Add(lop);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(hieu);
+            return View(lop);
         }
 
-        // GET: Hieu/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        // GET: Lop/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var hieu = await _context.Users.FindAsync(id);
-            if (hieu == null)
+            var lop = await _context.Lop.FindAsync(id);
+            if (lop == null)
             {
                 return NotFound();
             }
-            return View(hieu);
+            return View(lop);
         }
 
-        // POST: Hieu/Edit/5
+        // POST: Lop/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FullName")] Hieu hieu)
+        public async Task<IActionResult> Edit(string id, [Bind("FullName,Sđt,Tuoi")] Lop lop)
         {
-            if (id != hieu.Id)
+            if (id != lop.FullName)
             {
                 return NotFound();
             }
@@ -98,12 +97,12 @@ namespace KiemTraMvc.Controllers
             {
                 try
                 {
-                    _context.Update(hieu);
+                    _context.Update(lop);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HieuExists(hieu.Id))
+                    if (!LopExists(lop.FullName))
                     {
                         return NotFound();
                     }
@@ -114,45 +113,45 @@ namespace KiemTraMvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(hieu);
+            return View(lop);
         }
 
-        // GET: Hieu/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        // GET: Lop/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var hieu = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (hieu == null)
+            var lop = await _context.Lop
+                .FirstOrDefaultAsync(m => m.FullName == id);
+            if (lop == null)
             {
                 return NotFound();
             }
 
-            return View(hieu);
+            return View(lop);
         }
 
-        // POST: Hieu/Delete/5
+        // POST: Lop/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var hieu = await _context.Users.FindAsync(id);
-            if (hieu != null)
+            var lop = await _context.Lop.FindAsync(id);
+            if (lop != null)
             {
-                _context.Users.Remove(hieu);
+                _context.Lop.Remove(lop);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HieuExists(Guid id)
+        private bool LopExists(string id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Lop.Any(e => e.FullName == id);
         }
     }
 }

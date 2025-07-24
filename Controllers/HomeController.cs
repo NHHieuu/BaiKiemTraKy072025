@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using KiemTraMvc.Models;
 
+
 namespace KiemTraMvc.Controllers;
 
 public class HomeController : Controller
@@ -12,20 +13,13 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-
-    public IActionResult Index()
+    [HttpPost]
+    public IActionResult Index(Hieu ps)
     {
+        string Output = "xin chao" + ps.UserName + "và " + ps.PassWord;
+        ViewBag.Message = Output;
         return View();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }

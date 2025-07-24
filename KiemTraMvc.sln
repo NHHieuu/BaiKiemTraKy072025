@@ -22,3 +22,4 @@ Global
 		SolutionGuid = {8D856A5A-F7BA-4143-90E0-38D5F03DD9C8}
 	EndGlobalSection
 EndGlobal
+dotnet aspnet-codegenerator controller -name LopController -m Lop -dc KiemTraMvc.Data.ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries --databaseProvider sqlite -f

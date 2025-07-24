@@ -4,9 +4,7 @@ namespace KiemTraMvc.Models
 {
     public class Hieu
     {
-        [Key]
-        public Guid Id { get; set; }
-        public string FullName { get; set; }
-
+        public string UserName { get; set; }
+        public string PassWord { get; set; }
     }
 }
